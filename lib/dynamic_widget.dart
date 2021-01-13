@@ -3,6 +3,7 @@ library dynamic_widget;
 import 'dart:convert';
 
 import 'package:dynamic_widget/dynamic_widget/basic/align_widget_parser.dart';
+import 'package:dynamic_widget/dynamic_widget/basic/appbar_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/aspectratio_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/baseline_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/button_widget_parser.dart';
@@ -20,6 +21,7 @@ import 'package:dynamic_widget/dynamic_widget/basic/padding_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/placeholder_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/row_column_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/safearea_widget_parser.dart';
+import 'package:dynamic_widget/dynamic_widget/basic/scaffold_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/selectabletext_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/sizedbox_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/stack_positioned_widgets_parser.dart';
@@ -28,6 +30,7 @@ import 'package:dynamic_widget/dynamic_widget/basic/wrap_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/scrolling/gridview_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/scrolling/listview_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/scrolling/pageview_widget_parser.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
 
@@ -67,7 +70,9 @@ class DynamicWidgetBuilder {
     IconWidgetParser(),
     ClipRRectWidgetParser(),
     SafeAreaWidgetParser(),
-    ListTileWidgetParser()
+    ListTileWidgetParser(),
+    ScaffoldWidgetParser(),
+    AppBarWidgetParser()
   ];
 
   static final _widgetNameParserMap = <String, WidgetParser>{};
@@ -132,14 +137,16 @@ class DynamicWidgetBuilder {
   static Map<String, dynamic> export(Widget widget, BuildContext buildContext) {
     initDefaultParsersIfNess();
     var parser = _findMatchedWidgetParserForExport(widget);
-    if (parser!=null) {
+    if (parser != null) {
       return parser.export(widget, buildContext);
     }
-    log.warning("Can't find WidgetParser for Type ${widget.runtimeType} to export.");
+    log.warning(
+        "Can't find WidgetParser for Type ${widget.runtimeType} to export.");
     return null;
   }
 
-  static List<Map<String, dynamic>> exportWidgets(List<Widget> widgets, BuildContext buildContext) {
+  static List<Map<String, dynamic>> exportWidgets(
+      List<Widget> widgets, BuildContext buildContext) {
     initDefaultParsersIfNess();
     List<Map<String, dynamic>> rt = [];
     for (var widget in widgets) {
@@ -148,9 +155,9 @@ class DynamicWidgetBuilder {
     return rt;
   }
 
-  static WidgetParser _findMatchedWidgetParserForExport(Widget widget){
+  static WidgetParser _findMatchedWidgetParserForExport(Widget widget) {
     for (var parser in _parsers) {
-      if (parser.matchWidgetForExport(widget)){
+      if (parser.matchWidgetForExport(widget)) {
         return parser;
       }
     }
