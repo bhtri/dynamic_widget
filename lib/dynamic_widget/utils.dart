@@ -1091,8 +1091,119 @@ String exportAlignment(Alignment alignment) {
 Map<String, dynamic> exportConstraints(BoxConstraints constraints) {
   return {
     'minWidth': constraints.minWidth,
-    'maxWidth': constraints.maxWidth == double.infinity? 999999999.99 : constraints.maxWidth,
+    'maxWidth': constraints.maxWidth == double.infinity
+        ? 999999999.99
+        : constraints.maxWidth,
     'minHeight': constraints.minHeight,
-    'maxHeight': constraints.maxHeight == double.infinity? 999999999.99 : constraints.maxHeight,
+    'maxHeight': constraints.maxHeight == double.infinity
+        ? 999999999.99
+        : constraints.maxHeight,
   };
+}
+
+Map<String, dynamic> exportShapeBorder(ShapeBorder shape) {
+  if (shape == null) return null;
+
+  switch (shape.runtimeType) {
+    case CircleBorder:
+      var typeName = "CircleBorder";
+
+      return {
+        "type": typeName,
+      };
+
+    case RoundedRectangleBorder:
+      var typeName = "RoundedRectangleBorder";
+      var roundedRectangleBorder = shape as RoundedRectangleBorder;
+      var borderRadius = roundedRectangleBorder.borderRadius as BorderRadius;
+
+      return {
+        "type": typeName,
+        "borderRadius":
+            "${borderRadius.topLeft.x},${borderRadius.topRight.x},${borderRadius.bottomLeft.x},${borderRadius.bottomRight.x}",
+      };
+
+    case ContinuousRectangleBorder:
+      var typeName = "ContinuousRectangleBorder";
+      var continuousRectangleBorder = shape as ContinuousRectangleBorder;
+      var borderRadius = continuousRectangleBorder.borderRadius as BorderRadius;
+
+      return {
+        "type": typeName,
+        "borderRadius":
+            "${borderRadius.topLeft.x},${borderRadius.topRight.x},${borderRadius.bottomLeft.x},${borderRadius.bottomRight.x}",
+      };
+
+    case BeveledRectangleBorder:
+      var typeName = "BeveledRectangleBorder";
+      var beveledRectangleBorder = shape as BeveledRectangleBorder;
+      var borderRadius = beveledRectangleBorder.borderRadius as BorderRadius;
+
+      return {
+        "type": typeName,
+        "borderRadius":
+            "${borderRadius.topLeft.x},${borderRadius.topRight.x},${borderRadius.bottomLeft.x},${borderRadius.bottomRight.x}",
+      };
+
+    default:
+      return null;
+  }
+}
+
+ShapeBorder parseShapeBorder(Map<String, dynamic> map) {
+  if (map == null) return null;
+
+  String typeName = map["type"];
+  switch (typeName) {
+    case "CircleBorder":
+      return CircleBorder();
+
+    case "RoundedRectangleBorder":
+      var radius = map["borderRadius"].toString().split(",");
+      double topLeft = double.parse(radius[0]);
+      double topRight = double.parse(radius[1]);
+      double bottomLeft = double.parse(radius[2]);
+      double bottomRight = double.parse(radius[3]);
+
+      return RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(topLeft),
+            topRight: Radius.circular(topRight),
+            bottomLeft: Radius.circular(bottomLeft),
+            bottomRight: Radius.circular(bottomRight)),
+      );
+
+    case "ContinuousRectangleBorder":
+      var radius = map["borderRadius"].toString().split(",");
+      double topLeft = double.parse(radius[0]);
+      double topRight = double.parse(radius[1]);
+      double bottomLeft = double.parse(radius[2]);
+      double bottomRight = double.parse(radius[3]);
+
+      return ContinuousRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(topLeft),
+            topRight: Radius.circular(topRight),
+            bottomLeft: Radius.circular(bottomLeft),
+            bottomRight: Radius.circular(bottomRight)),
+      );
+
+    case "BeveledRectangleBorder":
+      var radius = map["borderRadius"].toString().split(",");
+      double topLeft = double.parse(radius[0]);
+      double topRight = double.parse(radius[1]);
+      double bottomLeft = double.parse(radius[2]);
+      double bottomRight = double.parse(radius[3]);
+
+      return BeveledRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(topLeft),
+            topRight: Radius.circular(topRight),
+            bottomLeft: Radius.circular(bottomLeft),
+            bottomRight: Radius.circular(bottomRight)),
+      );
+
+    default:
+      return null;
+  }
 }
