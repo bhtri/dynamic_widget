@@ -46,10 +46,13 @@ class TextFieldWidgetParser extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext,
       ClickListener listener) {
+    Map<String, dynamic> decorationMap = map["decoration"];
+    InputDecoration decoration = decorationMap == null
+        ? null
+        : parseInputDecoration(decorationMap, buildContext, listener);
+
     var textField = TextField(
-      decoration: map["decoration"]
-          ? parseInputDecoration(map["decoration"], buildContext, listener)
-          : null,
+      decoration: decoration,
       keyboardType: parseTextInputType(map["keyboardType"]),
       style: map["style"] ? parseTextStyle(map["style"]) : null,
       textAlign: map["textAlign"] ? parseTextAlign(map["textAlign"]) : null,
