@@ -1281,75 +1281,92 @@ InputDecoration parseInputDecoration(Map<String, dynamic> map,
   if (map == null) return null;
 
   var inputDecoration = InputDecoration(
-    icon: map["icon"]
+    icon: map.containsKey("icon")
         ? DynamicWidgetBuilder.buildFromMap(map["icon"], buildContext, listener)
         : null,
     labelText: map["labelText"]?.toString(),
-    labelStyle: map["labelStyle"] ? parseTextStyle(map["labelStyle"]) : null,
+    labelStyle: map.containsKey("labelStyle")
+        ? parseTextStyle(map["labelStyle"])
+        : null,
     helperText: map["helperText"]?.toString(),
-    helperStyle: map["helperStyle"] ? parseTextStyle(map["helperStyle"]) : null,
+    helperStyle: map.containsKey("helperStyle")
+        ? parseTextStyle(map["helperStyle"])
+        : null,
     helperMaxLines: map["helperMaxLines"]?.toInt(),
     hintText: map["hintText"]?.toString(),
-    hintStyle: map["hintStyle"] ? parseTextStyle(map["hintStyle"]) : null,
+    hintStyle:
+        map.containsKey("hintStyle") ? parseTextStyle(map["hintStyle"]) : null,
     hintMaxLines: map["hintMaxLines"]?.toInt(),
-    errorText: map["errorText"].toString(),
-    errorStyle: map["errorStyle"] ? parseTextStyle(map["errorStyle"]) : null,
+    errorText: map["errorText"]?.toString(),
+    errorStyle: map.containsKey("errorStyle")
+        ? parseTextStyle(map["errorStyle"])
+        : null,
     errorMaxLines: map["errorMaxLines"]?.toInt(),
-    floatingLabelBehavior: map["floatingLabelBehavior"]
+    floatingLabelBehavior: map.containsKey("floatingLabelBehavior")
         ? parseFloatingLabelBehavior(map["floatingLabelBehavior"])
         : FloatingLabelBehavior.auto,
-    isCollapsed: map["isCollapsed"] ? map["isCollapsed"] as bool : false,
-    isDense: map["isDense"] ? map["isDense"] as bool : null,
-    contentPadding: map["contentPadding"]
+    isCollapsed:
+        map.containsKey("isCollapsed") ? map["isCollapsed"] as bool : false,
+    isDense: map.containsKey("isDense") ? map["isDense"] as bool : null,
+    contentPadding: map.containsKey("contentPadding")
         ? parseEdgeInsetsGeometry(map["contentPadding"])
         : null,
-    prefixIcon: map["prefixIcon"]
+    prefixIcon: map.containsKey("prefixIcon")
         ? DynamicWidgetBuilder.buildFromMap(
             map["prefixIcon"], buildContext, listener)
         : null,
-    prefixIconConstraints: map["prefixIconConstraints"]
+    prefixIconConstraints: map.containsKey("prefixIconConstraints")
         ? parseBoxConstraints(map["prefixIconConstraints"])
         : null,
-    prefix: map["prefix"]
+    prefix: map.containsKey("prefix")
         ? DynamicWidgetBuilder.buildFromMap(
             map["prefix"], buildContext, listener)
         : null,
     prefixText: map["prefixText"]?.toString(),
-    prefixStyle: map["prefixStyle"] ? parseTextStyle(map["prefixStyle"]) : null,
-    suffixIcon: map["suffixIcon"]
+    prefixStyle: map.containsKey("prefixStyle")
+        ? parseTextStyle(map["prefixStyle"])
+        : null,
+    suffixIcon: map.containsKey("suffixIcon")
         ? DynamicWidgetBuilder.buildFromMap(
             map["suffixIcon"], buildContext, listener)
         : null,
-    suffix: map["suffix"]
+    suffix: map.containsKey("suffix")
         ? DynamicWidgetBuilder.buildFromMap(
             map["suffix"], buildContext, listener)
         : null,
     suffixText: map["suffixText"]?.toString(),
-    suffixStyle: map["suffixStyle"] ? parseTextStyle(map["suffixStyle"]) : null,
-    suffixIconConstraints: map["suffixIconConstraints"]
+    suffixStyle: map.containsKey("suffixStyle")
+        ? parseTextStyle(map["suffixStyle"])
+        : null,
+    suffixIconConstraints: map.containsKey("suffixIconConstraints")
         ? parseBoxConstraints(map["suffixIconConstraints"])
         : null,
-    counter: map["counter"]
+    counter: map.containsKey("counter")
         ? DynamicWidgetBuilder.buildFromMap(
             map["counter"], buildContext, listener)
         : null,
     counterText: map["counterText"]?.toString(),
-    counterStyle:
-        map["counterStyle"] ? parseTextStyle(map["counterStyle"]) : null,
-    filled: map["filled"] ? map["filled"] as bool : null,
-    fillColor: map["fillColor"] ? parseHexColor(map["fillColor"]) : null,
-    focusColor: map["focusColor"] ? parseHexColor(map["focusColor"]) : null,
-    hoverColor: map["hoverColor"] ? parseHexColor(map["hoverColor"]) : null,
+    counterStyle: map.containsKey("counterStyle")
+        ? parseTextStyle(map["counterStyle"])
+        : null,
+    filled: map.containsKey("filled") ? map["filled"] as bool : null,
+    fillColor:
+        map.containsKey("fillColor") ? parseHexColor(map["fillColor"]) : null,
+    focusColor:
+        map.containsKey("focusColor") ? parseHexColor(map["focusColor"]) : null,
+    hoverColor:
+        map.containsKey("hoverColor") ? parseHexColor(map["hoverColor"]) : null,
     errorBorder: null,
     focusedBorder: null,
     focusedErrorBorder: null,
     disabledBorder: null,
     enabledBorder: null,
     border: null,
-    enabled: map["enabled"] ? map["enabled"] as bool : true,
+    enabled: map.containsKey("enabled") ? map["enabled"] as bool : true,
     semanticCounterText: map["semanticCounterText"]?.toString(),
-    alignLabelWithHint:
-        map["alignLabelWithHint"] ? map["alignLabelWithHint"] as bool : null,
+    alignLabelWithHint: map.containsKey("alignLabelWithHint")
+        ? map["alignLabelWithHint"] as bool
+        : null,
   );
 
   return inputDecoration;
