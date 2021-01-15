@@ -1237,8 +1237,9 @@ Map<String, dynamic> exportInputDecoration(
         : null,
     "prefixIcon":
         DynamicWidgetBuilder.export(decoration.prefixIcon, buildContext),
-    "prefixIconConstraints":
-        exportConstraints(decoration.prefixIconConstraints),
+    "prefixIconConstraints": decoration.prefixIconConstraints != null
+        ? exportConstraints(decoration.prefixIconConstraints)
+        : null,
     "prefix": DynamicWidgetBuilder.export(decoration.prefix, buildContext),
     "prefixText": decoration.prefixText,
     "prefixStyle": exportTextStyle(decoration.prefixStyle),
