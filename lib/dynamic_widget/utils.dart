@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/drop_cap_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 TextAlign parseTextAlign(String textAlignString) {
@@ -1205,5 +1206,225 @@ ShapeBorder parseShapeBorder(Map<String, dynamic> map) {
 
     default:
       return null;
+  }
+}
+
+Map<String, dynamic> exportInputDecoration(
+    InputDecoration decoration, BuildContext buildContext) {
+  if (decoration == null) return null;
+
+  var contentPadding = decoration.contentPadding as EdgeInsets;
+
+  return <String, dynamic>{
+    "icon": DynamicWidgetBuilder.export(decoration.icon, buildContext),
+    "labelText": decoration.labelText,
+    "labelStyle": exportTextStyle(decoration.labelStyle),
+    "helperText": decoration.helperText,
+    "helperStyle": exportTextStyle(decoration.helperStyle),
+    "helperMaxLines": decoration.helperMaxLines,
+    "hintText": decoration.hintText,
+    "hintStyle": exportTextStyle(decoration.hintStyle),
+    "hintMaxLines": decoration.hintMaxLines,
+    "errorText": decoration.errorText,
+    "errorStyle": exportTextStyle(decoration.errorStyle),
+    "errorMaxLines": decoration.errorMaxLines,
+    "floatingLabelBehavior":
+        exportFloatingLabelBehavior(decoration.floatingLabelBehavior),
+    "isCollapsed": decoration.isCollapsed,
+    "isDense": decoration.isDense,
+    "contentPadding": contentPadding != null
+        ? "${contentPadding.left},${contentPadding.top},${contentPadding.right},${contentPadding.bottom}"
+        : null,
+    "prefixIcon":
+        DynamicWidgetBuilder.export(decoration.prefixIcon, buildContext),
+    "prefixIconConstraints":
+        exportConstraints(decoration.prefixIconConstraints),
+    "prefix": DynamicWidgetBuilder.export(decoration.prefix, buildContext),
+    "prefixText": decoration.prefixText,
+    "prefixStyle": exportTextStyle(decoration.prefixStyle),
+    "suffixIcon":
+        DynamicWidgetBuilder.export(decoration.suffixIcon, buildContext),
+    "suffix": DynamicWidgetBuilder.export(decoration.suffix, buildContext),
+    "suffixText": decoration.suffixText,
+    "suffixStyle": exportTextStyle(decoration.suffixStyle),
+    "suffixIconConstraints":
+        exportConstraints(decoration.suffixIconConstraints),
+    "counter": DynamicWidgetBuilder.export(decoration.counter, buildContext),
+    "counterText": decoration.counterText,
+    "counterStyle": exportTextStyle(decoration.counterStyle),
+    "filled": decoration.filled,
+    "fillColor": decoration.fillColor == null
+        ? null
+        : decoration.fillColor.value.toRadixString(16),
+    "focusColor": decoration.focusColor == null
+        ? null
+        : decoration.focusColor.value.toRadixString(16),
+    "hoverColor": decoration.hoverColor == null
+        ? null
+        : decoration.hoverColor.value.toRadixString(16),
+    "errorBorder": null,
+    "focusedBorder": null,
+    "focusedErrorBorder": null,
+    "disabledBorder": null,
+    "enabledBorder": null,
+    "border": null,
+    "enabled": decoration.enabled,
+    "semanticCounterText": decoration.semanticCounterText,
+    "alignLabelWithHint": decoration.alignLabelWithHint,
+  };
+}
+
+InputDecoration parseInputDecoration(Map<String, dynamic> map,
+    BuildContext buildContext, ClickListener listener) {
+  if (map == null) return null;
+
+  var inputDecoration = InputDecoration(
+    icon: map["icon"]
+        ? DynamicWidgetBuilder.buildFromMap(map["icon"], buildContext, listener)
+        : null,
+    labelText: map["labelText"]?.toString(),
+    labelStyle: map["labelStyle"] ? parseTextStyle(map["labelStyle"]) : null,
+    helperText: map["helperText"]?.toString(),
+    helperStyle: map["helperStyle"] ? parseTextStyle(map["helperStyle"]) : null,
+    helperMaxLines: map["helperMaxLines"]?.toInt(),
+    hintText: map["hintText"]?.toString(),
+    hintStyle: map["hintStyle"] ? parseTextStyle(map["hintStyle"]) : null,
+    hintMaxLines: map["hintMaxLines"]?.toInt(),
+    errorText: map["errorText"].toString(),
+    errorStyle: map["errorStyle"] ? parseTextStyle(map["errorStyle"]) : null,
+    errorMaxLines: map["errorMaxLines"]?.toInt(),
+    floatingLabelBehavior: map["floatingLabelBehavior"]
+        ? parseFloatingLabelBehavior(map["floatingLabelBehavior"])
+        : FloatingLabelBehavior.auto,
+    isCollapsed: map["isCollapsed"] ? map["isCollapsed"] as bool : false,
+    isDense: map["isDense"] ? map["isDense"] as bool : null,
+    contentPadding: map["contentPadding"]
+        ? parseEdgeInsetsGeometry(map["contentPadding"])
+        : null,
+    prefixIcon: map["prefixIcon"]
+        ? DynamicWidgetBuilder.buildFromMap(
+            map["prefixIcon"], buildContext, listener)
+        : null,
+    prefixIconConstraints: map["prefixIconConstraints"]
+        ? parseBoxConstraints(map["prefixIconConstraints"])
+        : null,
+    prefix: map["prefix"]
+        ? DynamicWidgetBuilder.buildFromMap(
+            map["prefix"], buildContext, listener)
+        : null,
+    prefixText: map["prefixText"]?.toString(),
+    prefixStyle: map["prefixStyle"] ? parseTextStyle(map["prefixStyle"]) : null,
+    suffixIcon: map["suffixIcon"]
+        ? DynamicWidgetBuilder.buildFromMap(
+            map["suffixIcon"], buildContext, listener)
+        : null,
+    suffix: map["suffix"]
+        ? DynamicWidgetBuilder.buildFromMap(
+            map["suffix"], buildContext, listener)
+        : null,
+    suffixText: map["suffixText"]?.toString(),
+    suffixStyle: map["suffixStyle"] ? parseTextStyle(map["suffixStyle"]) : null,
+    suffixIconConstraints: map["suffixIconConstraints"]
+        ? parseBoxConstraints(map["suffixIconConstraints"])
+        : null,
+    counter: map["counter"]
+        ? DynamicWidgetBuilder.buildFromMap(
+            map["counter"], buildContext, listener)
+        : null,
+    counterText: map["counterText"]?.toString(),
+    counterStyle:
+        map["counterStyle"] ? parseTextStyle(map["counterStyle"]) : null,
+    filled: map["filled"] ? map["filled"] as bool : null,
+    fillColor: map["fillColor"] ? parseHexColor(map["fillColor"]) : null,
+    focusColor: map["focusColor"] ? parseHexColor(map["focusColor"]) : null,
+    hoverColor: map["hoverColor"] ? parseHexColor(map["hoverColor"]) : null,
+    errorBorder: null,
+    focusedBorder: null,
+    focusedErrorBorder: null,
+    disabledBorder: null,
+    enabledBorder: null,
+    border: null,
+    enabled: map["enabled"] ? map["enabled"] as bool : true,
+    semanticCounterText: map["semanticCounterText"]?.toString(),
+    alignLabelWithHint:
+        map["alignLabelWithHint"] ? map["alignLabelWithHint"] as bool : null,
+  );
+
+  return inputDecoration;
+}
+
+String exportFloatingLabelBehavior(
+    FloatingLabelBehavior floatingLabelBehavior) {
+  if (floatingLabelBehavior == null) return "auto";
+
+  if (floatingLabelBehavior == FloatingLabelBehavior.never) return "never";
+  if (floatingLabelBehavior == FloatingLabelBehavior.auto) return "auto";
+  if (floatingLabelBehavior == FloatingLabelBehavior.always) return "always";
+
+  return "auto";
+}
+
+FloatingLabelBehavior parseFloatingLabelBehavior(
+    String floatingLabelBehaviorString) {
+  FloatingLabelBehavior floatingLabelBehavior;
+
+  switch (floatingLabelBehaviorString) {
+    case "never":
+      floatingLabelBehavior = FloatingLabelBehavior.never;
+      break;
+    case "auto":
+      floatingLabelBehavior = FloatingLabelBehavior.auto;
+      break;
+    case "always":
+      floatingLabelBehavior = FloatingLabelBehavior.always;
+      break;
+    default:
+      floatingLabelBehavior = FloatingLabelBehavior.auto;
+  }
+
+  return floatingLabelBehavior;
+}
+
+String exportTextInputType(TextInputType keyboardType) {
+  if (keyboardType == null) return "text";
+
+  if (keyboardType == TextInputType.text) return "text";
+  if (keyboardType == TextInputType.multiline) return "multiline";
+  if (keyboardType == TextInputType.number) return "number";
+  if (keyboardType == TextInputType.phone) return "phone";
+  if (keyboardType == TextInputType.datetime) return "datetime";
+  if (keyboardType == TextInputType.emailAddress) return "emailAddress";
+  if (keyboardType == TextInputType.url) return "url";
+  if (keyboardType == TextInputType.visiblePassword) return "visiblePassword";
+  if (keyboardType == TextInputType.name) return "name";
+  if (keyboardType == TextInputType.streetAddress) return "streetAddress";
+
+  return "text";
+}
+
+TextInputType parseTextInputType(String keyboardTypeString) {
+  if (keyboardTypeString == null) return TextInputType.text;
+
+  switch (keyboardTypeString) {
+    case "text":
+      return TextInputType.text;
+    case "multiline":
+      return TextInputType.multiline;
+    case "phone":
+      return TextInputType.phone;
+    case "datetime":
+      return TextInputType.datetime;
+    case "emailAddress":
+      return TextInputType.emailAddress;
+    case "url":
+      return TextInputType.url;
+    case "visiblePassword":
+      return TextInputType.visiblePassword;
+    case "name":
+      return TextInputType.name;
+    case "streetAddress":
+      return TextInputType.streetAddress;
+    default:
+      return TextInputType.text;
   }
 }
