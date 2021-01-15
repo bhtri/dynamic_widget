@@ -13,6 +13,7 @@ import 'package:dynamic_widget/dynamic_widget/basic/dropcaptext_widget_parser.da
 import 'package:dynamic_widget/dynamic_widget/basic/expanded_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/fittedbox_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/icon_widget_parser.dart';
+import 'package:dynamic_widget/dynamic_widget/basic/iconbutton_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/image_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/indexedstack_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/listtile_widget_parser.dart';
@@ -28,6 +29,7 @@ import 'package:dynamic_widget/dynamic_widget/basic/selectabletext_widget_parser
 import 'package:dynamic_widget/dynamic_widget/basic/sizedbox_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/stack_positioned_widgets_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/text_widget_parser.dart';
+import 'package:dynamic_widget/dynamic_widget/basic/textfield_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/wrap_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/scrolling/gridview_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/scrolling/listview_widget_parser.dart';
@@ -76,7 +78,9 @@ class DynamicWidgetBuilder {
     ScaffoldWidgetParser(),
     AppBarWidgetParser(),
     MaterialWidgetParser(),
-    MaterialButtonParser()
+    MaterialButtonParser(),
+    TextFieldWidgetParser(),
+    IconButtonWidgetParser()
   ];
 
   static final _widgetNameParserMap = <String, WidgetParser>{};
