@@ -46,40 +46,51 @@ class TextFieldWidgetParser extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext,
       ClickListener listener) {
-    Map<String, dynamic> decorationMap = map["decoration"];
-    InputDecoration decoration = decorationMap == null
-        ? null
-        : parseInputDecoration(decorationMap, buildContext, listener);
-
     var textField = TextField(
-      decoration: decoration,
-      keyboardType: parseTextInputType(map["keyboardType"]),
-      style: map["style"] ? parseTextStyle(map["style"]) : null,
-      textAlign: map["textAlign"] ? parseTextAlign(map["textAlign"]) : null,
-      textDirection: map["textDirection"]
+      decoration: map.containsKey("decoration")
+          ? parseInputDecoration(map["decoration"], buildContext, listener)
+          : null,
+      keyboardType: map.containsKey("keyboardType")
+          ? parseTextInputType(map["keyboardType"])
+          : TextInputType.text,
+      style: map.containsKey("style") ? parseTextStyle(map["style"]) : null,
+      textAlign: map.containsKey("textAlign")
+          ? parseTextAlign(map["textAlign"])
+          : null,
+      textDirection: map.containsKey("textDirection")
           ? parseTextDirection(map["textDirection"])
           : null,
-      readOnly: map["readOnly"] ? map["readOnly"] as bool : false,
-      showCursor: map["showCursor"] ? map["showCursor"] as bool : null,
-      autofocus: map["autofocus"] ? map["autofocus"] as bool : false,
+      readOnly: map.containsKey("readOnly") ? map["readOnly"] as bool : false,
+      showCursor:
+          map.containsKey("showCursor") ? map["showCursor"] as bool : null,
+      autofocus:
+          map.containsKey("autofocus") ? map["autofocus"] as bool : false,
       obscuringCharacter: map["obscuringCharacter"]?.toString(),
-      obscureText: map["obscureText"] ? map["obscureText"] as bool : false,
-      autocorrect: map["autocorrect"] ? map["autocorrect"] as bool : true,
-      enableSuggestions:
-          map["enableSuggestions"] ? map["enableSuggestions"] as bool : true,
-      maxLines: map["maxLines"] ? map["maxLines"]?.toInt() : 1,
-      minLines: map["minLines"] ? map["minLines"]?.toInt() : null,
-      expands: map["expands"] ? map["expands"] as bool : false,
-      maxLength: map["maxLength"] ? map["maxLength"]?.toInt() : null,
-      maxLengthEnforced:
-          map["maxLengthEnforced"] ? map["maxLengthEnforced"] as bool : true,
-      enabled: map["enabled"] ? map["enabled"] as bool : null,
-      cursorWidth: map["cursorWidth"] ? map["cursorWidth"]?.toDouble() : 2.0,
-      cursorHeight:
-          map["cursorHeight"] ? map["cursorHeight"]?.toDouble() : null,
-      cursorColor:
-          map["cursorColor"] ? parseHexColor(map["cursorColor"]) : null,
-      enableInteractiveSelection: map["enableInteractiveSelection"]
+      obscureText:
+          map.containsKey("obscureText") ? map["obscureText"] as bool : false,
+      autocorrect:
+          map.containsKey("autocorrect") ? map["autocorrect"] as bool : true,
+      enableSuggestions: map.containsKey("enableSuggestions")
+          ? map["enableSuggestions"] as bool
+          : true,
+      maxLines: map.containsKey("maxLines") ? map["maxLines"]?.toInt() : 1,
+      minLines: map.containsKey("minLines") ? map["minLines"]?.toInt() : null,
+      expands: map.containsKey("expands") ? map["expands"] as bool : false,
+      maxLength:
+          map.containsKey("maxLength") ? map["maxLength"]?.toInt() : null,
+      maxLengthEnforced: map.containsKey("maxLengthEnforced")
+          ? map["maxLengthEnforced"] as bool
+          : true,
+      enabled: map.containsKey("enabled") ? map["enabled"] as bool : null,
+      cursorWidth:
+          map.containsKey("cursorWidth") ? map["cursorWidth"]?.toDouble() : 2.0,
+      cursorHeight: map.containsKey("cursorHeight")
+          ? map["cursorHeight"]?.toDouble()
+          : null,
+      cursorColor: map.containsKey("cursorColor")
+          ? parseHexColor(map["cursorColor"])
+          : null,
+      enableInteractiveSelection: map.containsKey("enableInteractiveSelection")
           ? map["enableInteractiveSelection"] as bool
           : true,
     );
