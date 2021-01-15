@@ -52,7 +52,7 @@ class IconButtonWidgetParser extends WidgetParser {
         map.containsKey("click_event") ? map['click_event'] : "";
 
     var iconButton = IconButton(
-      icon: map["icon"]
+      icon: map.containsKey("icon")
           ? DynamicWidgetBuilder.buildFromMap(
               map["icon"], buildContext, listener)
           : null,
@@ -67,18 +67,25 @@ class IconButtonWidgetParser extends WidgetParser {
           ? parseAlignment(map['alignment'])
           : Alignment.center,
       splashRadius: map["splashRadius"]?.toDouble(),
-      color: map["color"] ? parseHexColor(map["color"]) : null,
-      focusColor: map["focusColor"] ? parseHexColor(map["focusColor"]) : null,
-      hoverColor: map["hoverColor"] ? parseHexColor(map["hoverColor"]) : null,
-      highlightColor:
-          map["highlightColor"] ? parseHexColor(map["highlightColor"]) : null,
-      splashColor:
-          map["splashColor"] ? parseHexColor(map["splashColor"]) : null,
-      disabledColor:
-          map["disabledColor"] ? parseHexColor(map["disabledColor"]) : null,
+      color: map.containsKey("color") ? parseHexColor(map["color"]) : null,
+      focusColor: map.containsKey("focusColor")
+          ? parseHexColor(map["focusColor"])
+          : null,
+      hoverColor: map.containsKey("hoverColor")
+          ? parseHexColor(map["hoverColor"])
+          : null,
+      highlightColor: map.containsKey("highlightColor")
+          ? parseHexColor(map["highlightColor"])
+          : null,
+      splashColor: map.containsKey("splashColor")
+          ? parseHexColor(map["splashColor"])
+          : null,
+      disabledColor: map.containsKey("disabledColor")
+          ? parseHexColor(map["disabledColor"])
+          : null,
       autofocus:
           map.containsKey("autofocus") ? map["autofocus"] as bool : false,
-      tooltip: map["tooltip"].toString(),
+      tooltip: map["tooltip"]?.toString(),
       enableFeedback: map.containsKey("enableFeedback")
           ? map["enableFeedback"] as bool
           : true,
