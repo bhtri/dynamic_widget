@@ -1248,8 +1248,9 @@ Map<String, dynamic> exportInputDecoration(
     "suffix": DynamicWidgetBuilder.export(decoration.suffix, buildContext),
     "suffixText": decoration.suffixText,
     "suffixStyle": exportTextStyle(decoration.suffixStyle),
-    "suffixIconConstraints":
-        exportConstraints(decoration.suffixIconConstraints),
+    "suffixIconConstraints": decoration.suffixIconConstraints != null
+        ? exportConstraints(decoration.suffixIconConstraints)
+        : null,
     "counter": DynamicWidgetBuilder.export(decoration.counter, buildContext),
     "counterText": decoration.counterText,
     "counterStyle": exportTextStyle(decoration.counterStyle),
